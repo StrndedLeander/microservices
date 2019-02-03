@@ -9,6 +9,12 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "aws-amplify": "^1.1.19",
+    "aws-amplify-vue": "^0.2.5",
+    "bulma": "^0.7.2",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "terser": "^3.14.1",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

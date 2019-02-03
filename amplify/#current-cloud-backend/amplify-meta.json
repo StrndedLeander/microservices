@@ -1,0 +1,32 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "microservices-20190203145853-authRole",
+			"UnauthRoleArn": "arn:aws:iam::719968013321:role/microservices-20190203145853-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::719968013321:role/microservices-20190203145853-authRole",
+			"Region": "eu-central-1",
+			"DeploymentBucketName": "microservices-20190203145853-deployment",
+			"UnauthRoleName": "microservices-20190203145853-unauthRole",
+			"StackName": "microservices-20190203145853",
+			"StackId": "arn:aws:cloudformation:eu-central-1:719968013321:stack/microservices-20190203145853/d75d62e0-27bb-11e9-bf12-0ac843449136"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2019-02-03T14:21:51.490Z",
+			"output": {
+				"S3BucketSecureURL": "https://microservices-20190203150118-hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://microservices-20190203150118-hostingbucket.s3-website.eu-central-1.amazonaws.com",
+				"Region": "eu-central-1",
+				"HostingBucketName": "microservices-20190203150118-hostingbucket"
+			},
+			"lastPushDirHash": "jByUSXKue94q/7Z9niwrjPp1zVk="
+		}
+	}
+}
