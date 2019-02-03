@@ -7,10 +7,12 @@
   </div>
 </template>
 <script>
+import { components } from "aws-amplify-vue";
 import Navigation from "./components/Navigation";
 export default {
   components: {
-    Navigation
+    Navigation,
+    ...components
   }
 };
 </script>

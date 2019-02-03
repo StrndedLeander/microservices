@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { Auth } from "aws-amplify";
 import { mapState, mapActions } from "vuex";
 import router from "../router.js";
 export default {
