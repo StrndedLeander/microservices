@@ -23,6 +23,11 @@ export default new Router({
       path: "/news",
       name: "NewsView",
       component: News
+    },
+    {
+      path: "/sign",
+      name: "SignView",
+      component: () => import("./views/AuthFlow/Sign.vue")
     }
   ]
 });

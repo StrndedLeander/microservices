@@ -4,7 +4,11 @@ const awsmobile =  {
     "aws_project_region": "eu-central-1",
     "aws_content_delivery_bucket": "microservices-20190203150118-hostingbucket",
     "aws_content_delivery_bucket_region": "eu-central-1",
-    "aws_content_delivery_url": "http://microservices-20190203150118-hostingbucket.s3-website.eu-central-1.amazonaws.com"
+    "aws_content_delivery_url": "http://microservices-20190203150118-hostingbucket.s3-website.eu-central-1.amazonaws.com",
+    "aws_cognito_identity_pool_id": "eu-central-1:a299930b-0540-4ae5-ae2e-9895b7b0e20f",
+    "aws_cognito_region": "eu-central-1",
+    "aws_user_pools_id": "eu-central-1_9fDkk6Zv7",
+    "aws_user_pools_web_client_id": "22dr3cigikc9p1odc4245lu2kc"
 };
 
 
