@@ -14,6 +14,18 @@ const awsmobile =  {
             "name": "usersAuthAPI",
             "endpoint": "https://x0e8bg0lvi.execute-api.eu-central-1.amazonaws.com/Prod",
             "region": "eu-central-1"
+        },
+        {
+            "name": "authUsers",
+            "endpoint": "https://tbhiiifry1.execute-api.eu-central-1.amazonaws.com/Prod",
+            "region": "eu-central-1"
+        }
+    ],
+    "aws_dynamodb_all_tables_region": "eu-central-1",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "usersDdb",
+            "region": "eu-central-1"
         }
     ]
 };

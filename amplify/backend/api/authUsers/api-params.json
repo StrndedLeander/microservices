@@ -1,0 +1,36 @@
+{
+    "paths": [
+        {
+            "name": "/auth",
+            "lambdaFunction": "microservicesc1813af9",
+            "privacy": {
+                "protected": true,
+                "auth": "rw",
+                "unauth": "rw"
+            }
+        }
+    ],
+    "resourceName": "authUsers",
+    "apiName": "microservices5e07d6bc",
+    "functionArns": [
+        {
+            "lambdaFunction": "microservicesc1813af9"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "microservices-20190203145853-authRole",
+        "unAuthRoleName": "microservices-20190203145853-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "microservicesc1813af9",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
