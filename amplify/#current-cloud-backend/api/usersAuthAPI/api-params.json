@@ -1,0 +1,29 @@
+{
+  "paths": [
+    {
+      "name": "/auth",
+      "lambdaArn": "arn:aws:lambda:eu-central-1:719968013321:function:addUserToDdb",
+      "lambdaFunction": "addUserToDdb",
+      "privacy": {
+        "protected": true,
+        "auth": "rw",
+        "unauth": "rw"
+      }
+    }
+  ],
+  "resourceName": "usersAuthAPI",
+  "apiName": "microservices50f5b4f9",
+  "functionArns": [
+    {
+      "lambdaFunction": "addUserToDdb",
+      "lambdaArn": "arn:aws:lambda:eu-central-1:719968013321:function:addUserToDdb"
+    }
+  ],
+  "privacy": {
+    "auth": 1,
+    "unauth": 1,
+    "authRoleName": "microservices-20190203145853-authRole",
+    "unAuthRoleName": "microservices-20190203145853-unauthRole"
+  },
+  "dependsOn": []
+}

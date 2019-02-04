@@ -1,6 +1,6 @@
 {
     "identityPoolName": "cognito21e4ec10_identitypool_21e4ec10",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "thirdPartyAuth": false,
     "lambdaLogPolicy": "cognito21e4ec10_lambda_log_policy",
     "openIdLambdaRoleName": "cognito21e4ec10_openid_lambda_role",

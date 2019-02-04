@@ -91,7 +91,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/auth/cognito21e4ec10-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "cognito21e4ec10_identitypool_21e4ec10",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
 					"lambdaLogPolicy": "cognito21e4ec10_lambda_log_policy",
 					"openIdLambdaRoleName": "cognito21e4ec10_openid_lambda_role",
@@ -133,6 +133,13 @@
 					"resourceName": "cognito21e4ec10",
 					"authSelections": "identityPoolAndUserPool"
 				}
+			}
+		},
+		"apiusersAuthAPI": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/usersAuthAPI-cloudformation-template.json",
+				"Parameters": {}
 			}
 		}
 	},
