@@ -1,4 +1,5 @@
-import { Auth } from "aws-amplify";
+import { Auth, API } from "aws-amplify";
+import router from "../router";
 
 export default {
   namespaced: true,
@@ -11,22 +12,53 @@ export default {
     findUser({ commit }) {
       Auth.currentAuthenticatedUser()
         .then(user => {
+          console.log("user", user);
           commit("setSignedIn", true);
-          commit("setAuthUser", user);
+          commit("setCognitoUser", user);
+          return user;
         })
         .catch(err => {
-          if (err === "not authenticated") {
-            commit("setSignedIn", false);
-            commit("setAuthUser", {});
-          } else {
-            console.log(err);
-          }
+          console.log(err);
+          return null;
         });
+    },
+    addUsertToDdb({ state, getters }) {
+      let params = {
+        body: {
+          userID: getters.userID,
+          userName: state.userName,
+          recentActivity: new Date(Date.now()).toDateString()
+        }, // replace this with attributes you need
+        headers: {} // OPTIONAL
+      };
+      API.post("authUsers", "/auth", params)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
+    },
+    globalSignOut({ commit }) {
+      Auth.signOut({ global: true })
+        .then(data => {
+          console.log(data);
+          commit("setSignedIn", false);
+          commit("resetUser");
+          router.push("/sign");
+        })
+        .catch(err => console.log(err));
     }
   },
   mutations: {
-    setAuthUser(state, user) {
-      state.currentAuthUser = user;
+    resetUser(state) {
+      state.currentAuthUser = {};
+    },
+    setCognitoUser(state, user) {
+      state.currentAuthUser.CognitoUser = user;
+    },
+    setUserData(state, data) {
+      state.currentAuthUser.data = data;
     },
     setSignedIn(state, bool) {
       state.signedIn = bool;

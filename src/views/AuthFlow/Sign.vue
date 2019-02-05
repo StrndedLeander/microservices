@@ -11,17 +11,21 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import { AmplifyEventBus } from "aws-amplify-vue";
+import router from "../../router.js"
 export default {
   name: "SignView",
   methods: {
-    ...mapActions("user", ["findUser"])
+    ...mapActions("user", ["findUser"]),
+    ...mapMutations("user", ["setNewUser"])
   },
   created() {
     AmplifyEventBus.$on("authState", info => {
       if (info === "signedIn") {
+        console.log(info);
         this.findUser();
+        router.push("/");
       } else {
         console.log(info);
       }
