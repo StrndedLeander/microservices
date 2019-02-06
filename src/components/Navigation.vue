@@ -3,7 +3,7 @@
     <div class="tabs is-centered">
       <ul>
         <li>
-          <router-link to="/user/:userName" class="button is-rounded">
+          <router-link :to="`/user/${userName}`" class="button is-rounded">
             <span class="icon">
               <i class="far fa-user"></i>
             </span>
@@ -44,13 +44,18 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "Navigation",
   data() {
     return {
       signingOut: false
     };
+  },
+  computed: {
+    ...mapState("user", {
+      userName: state => state.currentAuthUser.CognitoUser.username
+    })
   },
   methods: {
     ...mapActions("user", ["globalSignOut"]),

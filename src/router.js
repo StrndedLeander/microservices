@@ -42,6 +42,11 @@ let router = new Router({
       meta: {
         requiresGuest: true
       }
+    },
+    {
+      path: "/user/:userName",
+      name: "ProfileView",
+      component: () => import("./views/Profile")
     }
   ]
 });

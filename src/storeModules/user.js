@@ -5,7 +5,8 @@ export default {
   namespaced: true,
   state: {
     currentAuthUser: {},
-    signedIn: false
+    signedIn: false,
+    profileView: {}
   },
   getters: {},
   actions: {
@@ -23,7 +24,7 @@ export default {
           });
       });
     },
-    addUsertToDdb({ state, getters }) {
+    addUserToDdb({ state, getters }) {
       let params = {
         body: {
           userID: getters.userID,
@@ -40,6 +41,22 @@ export default {
           console.log(error.response);
         });
     },
+    fetchUserData({ commit }, userName) {
+      let params = {
+        body: {
+          userName: userName
+        }
+      };
+
+      API.get("authUsers", params)
+        .then(response => {
+          console.log(response);
+          commit("setProfileViewData", response.body);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     globalSignOut({ commit }) {
       Auth.signOut({ global: true })
         .then(data => {
@@ -49,7 +66,8 @@ export default {
           router.push("/sign");
         })
         .catch(err => console.log(err));
-    }
+    },
+    sendConfirmationCode() {}
   },
   mutations: {
     resetUser(state) {
@@ -63,6 +81,9 @@ export default {
     },
     setSignedIn(state, bool) {
       state.signedIn = bool;
+    },
+    setProfileViewData(state, data) {
+      state.profileView = data;
     }
   }
 };
