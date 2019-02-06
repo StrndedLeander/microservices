@@ -10,17 +10,18 @@ export default {
   getters: {},
   actions: {
     findUser({ commit }) {
-      Auth.currentAuthenticatedUser()
-        .then(user => {
-          console.log("user", user);
-          commit("setSignedIn", true);
-          commit("setCognitoUser", user);
-          return user;
-        })
-        .catch(err => {
-          console.log(err);
-          return null;
-        });
+      return new Promise((resolve, reject) => {
+        Auth.currentAuthenticatedUser()
+          .then(user => {
+            commit("setSignedIn", true);
+            commit("setCognitoUser", user);
+            console.log("user", user);
+            resolve(user);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     },
     addUsertToDdb({ state, getters }) {
       let params = {

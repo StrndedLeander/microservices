@@ -46,33 +46,35 @@ let router = new Router({
   ]
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    let user = await Store.dispatch("user/findUser");
-    console.log(to.fullPath, user);
-    if (user === {} || !user) {
-      next({
-        path: "/sign",
-        query: {
-          redirect: to.fullPath
-        }
+    Store.dispatch("user/findUser")
+      .then(() => {
+        next();
+      })
+      .catch(err => {
+        console.log(err);
+        next({
+          path: "/sign",
+          query: {
+            redirect: to.fullPath
+          }
+        });
       });
-    } else {
-      next();
-    }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
-    let user = await Store.dispatch("user/findUser");
-    console.log(to.fullPath, user);
-    if (user === {} || !user) {
-      next();
-    } else {
-      next({
-        path: "/",
-        query: {
-          redirect: to.fullPath
-        }
+    Store.dispatch("user/findUser")
+      .then(() => {
+        next({
+          path: "/",
+          query: {
+            redirect: to.fullPath
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        next();
       });
-    }
   } else {
     next();
   }
