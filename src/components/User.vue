@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "User",
   props: ["userName"],
@@ -14,7 +14,12 @@ export default {
       profileUserData: state => state.profileView
     })
   },
-  methods: {}
+  methods: {
+    ...mapActions("user", ["fetchUserData"])
+  },
+  created() {
+    this.fetchUserData(this.userName);
+  }
 };
 </script>
 

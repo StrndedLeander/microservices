@@ -11,20 +11,15 @@ const awsmobile =  {
     "aws_user_pools_web_client_id": "22dr3cigikc9p1odc4245lu2kc",
     "aws_cloud_logic_custom": [
         {
-            "name": "usersAuthAPI",
-            "endpoint": "https://x0e8bg0lvi.execute-api.eu-central-1.amazonaws.com/Prod",
-            "region": "eu-central-1"
-        },
-        {
-            "name": "authUsers",
-            "endpoint": "https://tbhiiifry1.execute-api.eu-central-1.amazonaws.com/Prod",
+            "name": "userAPI",
+            "endpoint": "https://ct5yxzcd9a.execute-api.eu-central-1.amazonaws.com/Prod",
             "region": "eu-central-1"
         }
     ],
     "aws_dynamodb_all_tables_region": "eu-central-1",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "usersDdb",
+            "tableName": "userTable",
             "region": "eu-central-1"
         }
     ]

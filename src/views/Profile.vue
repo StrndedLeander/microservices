@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 import User from "../components/User";
 export default {
   name: "ProfileView",
@@ -16,12 +15,6 @@ export default {
     userName() {
       this.$route.params.userName;
     }
-  },
-  methods: {
-    ...mapActions("user", ["fetchUserData"])
-  },
-  created() {
-    this.fetchUserData(this.userName);
   }
 };
 </script>

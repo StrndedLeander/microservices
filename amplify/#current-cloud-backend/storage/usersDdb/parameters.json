@@ -1,7 +1,0 @@
-{
-    "tableName": "usersDdb",
-    "partitionKeyName": "userID",
-    "partitionKeyType": "S",
-    "sortKeyName": "userName",
-    "sortKeyType": "S"
-}

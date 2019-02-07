@@ -1,0 +1,36 @@
+{
+    "paths": [
+        {
+            "name": "/user",
+            "lambdaFunction": "lambdaUserRsrc",
+            "privacy": {
+                "protected": true,
+                "auth": "rw",
+                "unauth": "r"
+            }
+        }
+    ],
+    "resourceName": "userAPI",
+    "apiName": "microservicesd515a448",
+    "functionArns": [
+        {
+            "lambdaFunction": "lambdaUserRsrc"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "microservices-20190203145853-authRole",
+        "unAuthRoleName": "microservices-20190203145853-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "lambdaUserRsrc",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

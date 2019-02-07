@@ -135,60 +135,51 @@
 				}
 			}
 		},
-		"apiusersAuthAPI": {
+		"apiuserAPI": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/usersAuthAPI-cloudformation-template.json",
-				"Parameters": {}
-			}
-		},
-		"apiauthUsers": {
-			"Type": "AWS::CloudFormation::Stack",
-			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/authUsers-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/userAPI-cloudformation-template.json",
 				"Parameters": {
-					"functionmicroservicesc1813af9Name": {
+					"functionlambdaUserRsrcName": {
 						"Fn::GetAtt": [
-							"functionmicroservicesc1813af9",
+							"functionlambdaUserRsrc",
 							"Outputs.Name"
 						]
 					},
-					"functionmicroservicesc1813af9Arn": {
+					"functionlambdaUserRsrcArn": {
 						"Fn::GetAtt": [
-							"functionmicroservicesc1813af9",
+							"functionlambdaUserRsrc",
 							"Outputs.Arn"
 						]
 					}
 				}
 			}
 		},
-		"storageusersDdb": {
+		"storageuserTable": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/storage/usersDdb-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/storage/userTable-cloudformation-template.json",
 				"Parameters": {
-					"tableName": "usersDdb",
-					"partitionKeyName": "userID",
-					"partitionKeyType": "S",
-					"sortKeyName": "userName",
-					"sortKeyType": "S"
+					"tableName": "userTable",
+					"partitionKeyName": "userName",
+					"partitionKeyType": "S"
 				}
 			}
 		},
-		"functionmicroservicesc1813af9": {
+		"functionlambdaUserRsrc": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/microservicesc1813af9-cloudformation-template.json",
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/lambdaUserRsrc-cloudformation-template.json",
 				"Parameters": {
-					"storageusersDdbName": {
+					"storageuserTableName": {
 						"Fn::GetAtt": [
-							"storageusersDdb",
+							"storageuserTable",
 							"Outputs.Name"
 						]
 					},
-					"storageusersDdbArn": {
+					"storageuserTableArn": {
 						"Fn::GetAtt": [
-							"storageusersDdb",
+							"storageuserTable",
 							"Outputs.Arn"
 						]
 					}
