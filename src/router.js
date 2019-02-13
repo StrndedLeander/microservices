@@ -81,6 +81,7 @@ router.beforeEach((to, from, next) => {
         next();
       });
   } else {
+    Store.dispatch("user/findUser");
     next();
   }
 });

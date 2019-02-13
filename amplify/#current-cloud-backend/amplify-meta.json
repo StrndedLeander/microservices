@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
 			},
-			"lastPushTimeStamp": "2019-02-07T10:07:42.471Z",
+			"lastPushTimeStamp": "2019-02-13T16:06:39.593Z",
 			"output": {
 				"S3BucketSecureURL": "https://microservices-20190203150118-hostingbucket.s3.amazonaws.com",
 				"WebsiteURL": "http://microservices-20190203150118-hostingbucket.s3-website.eu-central-1.amazonaws.com",
@@ -37,7 +37,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/auth/cognito21e4ec10-cloudformation-template.yml",
 				"logicalId": "authcognito21e4ec10"
 			},
-			"lastPushTimeStamp": "2019-02-07T10:07:42.474Z",
+			"lastPushTimeStamp": "2019-02-13T16:06:39.604Z",
 			"output": {
 				"AppClientSecret": "1cn3l95ark6k2sak9861m8b7li7ga8avv2ute0bqrfp1qcn2q0qi",
 				"UserPoolId": "eu-central-1_9fDkk6Zv7",
@@ -51,13 +51,13 @@
 		}
 	},
 	"api": {
-		"userAPI": {
+		"users": {
 			"service": "API Gateway",
 			"providerPlugin": "awscloudformation",
 			"dependsOn": [
 				{
 					"category": "function",
-					"resourceName": "lambdaUserRsrc",
+					"resourceName": "microservices450140d4",
 					"attributes": [
 						"Name",
 						"Arn"
@@ -65,15 +65,15 @@
 				}
 			],
 			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/userAPI-cloudformation-template.json",
-				"logicalId": "apiuserAPI"
+				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/users-cloudformation-template.json",
+				"logicalId": "apiusers"
 			},
-			"lastPushTimeStamp": "2019-02-07T10:07:42.499Z",
+			"lastPushTimeStamp": "2019-02-13T16:06:39.623Z",
 			"output": {
-				"ApiName": "userAPI",
-				"RootUrl": "https://ct5yxzcd9a.execute-api.eu-central-1.amazonaws.com/Prod"
+				"ApiName": "users",
+				"RootUrl": "https://x4j9wrwvcj.execute-api.eu-central-1.amazonaws.com/Prod"
 			},
-			"lastPushDirHash": "3v7pxec/vN8gjPRjEN6+lEKvJYM="
+			"lastPushDirHash": "e13gEZu5Ovo6EIjgC9ov7R9S1Ic="
 		}
 	},
 	"storage": {
@@ -84,7 +84,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/storage/userTable-cloudformation-template.json",
 				"logicalId": "storageuserTable"
 			},
-			"lastPushTimeStamp": "2019-02-07T10:07:42.499Z",
+			"lastPushTimeStamp": "2019-02-13T16:06:39.608Z",
 			"output": {
 				"PartitionKeyName": "userName",
 				"Region": "eu-central-1",
@@ -96,34 +96,25 @@
 		}
 	},
 	"function": {
-		"lambdaUserRsrc": {
+		"microservices450140d4": {
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
-			"dependsOn": [
-				{
-					"category": "storage",
-					"resourceName": "userTable",
-					"attributes": [
-						"Name",
-						"Arn"
-					]
-				}
-			],
-			"lastBuildTimeStamp": "2019-02-07T10:03:56.577Z",
-			"lastPackageTimeStamp": "2019-02-07T10:04:02.851Z",
-			"distZipFilename": "lambdaUserRsrc-1549533836-latest-build.zip",
+			"dependsOn": [],
+			"lastBuildTimeStamp": "2019-02-13T16:03:56.568Z",
+			"lastPackageTimeStamp": "2019-02-13T16:04:00.085Z",
+			"distZipFilename": "microservices450140d4-1550073836-latest-build.zip",
 			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/lambdaUserRsrc-cloudformation-template.json",
-				"logicalId": "functionlambdaUserRsrc"
+				"s3TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/microservices450140d4-cloudformation-template.json",
+				"logicalId": "functionmicroservices450140d4"
 			},
-			"lastPushTimeStamp": "2019-02-07T10:07:42.499Z",
+			"lastPushTimeStamp": "2019-02-13T16:06:39.623Z",
 			"output": {
 				"Region": "eu-central-1",
-				"Arn": "arn:aws:lambda:eu-central-1:719968013321:function:lambdaUserRsrc",
-				"Name": "lambdaUserRsrc"
+				"Arn": "arn:aws:lambda:eu-central-1:719968013321:function:microservices450140d4",
+				"Name": "microservices450140d4"
 			},
-			"lastPushDirHash": "crf4X9v1tb6OZ9Rbe8e6y6mmFD0="
+			"lastPushDirHash": "djHWTv5bXVEeNHUGWsBMD/c9Uyg="
 		}
 	}
 }

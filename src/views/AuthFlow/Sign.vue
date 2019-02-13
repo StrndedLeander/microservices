@@ -36,20 +36,28 @@ export default {
     };
   },
   methods: {
-    ...mapActions("user", ["findUser", "sendConfirmationCode"]),
+    ...mapActions("user", ["findUser", "sendConfirmationCode", "addUserToDdb"]),
     ...mapMutations("user", ["setNewUser"])
   },
   created() {
     AmplifyEventBus.$on("authState", info => {
       console.log(info);
       switch (info) {
+        case "confirmSignUp":
+          break;
+        case "signedOut":
+          break;
         case "signedIn":
-          router.push("/");
+          this.findUser().then(() => {
+            this.addUserToDdb();
+            router.push("/");
+          });
           break;
         case "confirmSignIn":
           this.hasToConfirmEmail = true;
           break;
         default:
+          console.log(info);
           router.push("/");
       }
     });

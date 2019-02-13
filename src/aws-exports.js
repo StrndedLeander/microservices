@@ -11,8 +11,8 @@ const awsmobile =  {
     "aws_user_pools_web_client_id": "22dr3cigikc9p1odc4245lu2kc",
     "aws_cloud_logic_custom": [
         {
-            "name": "userAPI",
-            "endpoint": "https://ct5yxzcd9a.execute-api.eu-central-1.amazonaws.com/Prod",
+            "name": "users",
+            "endpoint": "https://x4j9wrwvcj.execute-api.eu-central-1.amazonaws.com/Prod",
             "region": "eu-central-1"
         }
     ],
