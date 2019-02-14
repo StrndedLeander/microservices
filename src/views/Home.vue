@@ -9,7 +9,7 @@ export default {
   components: {},
   computed: {
     ...mapState("user", {
-      currentAuthUser: state => state.currentAuthUser,
+      user: state => state.userProps,
       signedIn: state => state.signedIn
     })
   },

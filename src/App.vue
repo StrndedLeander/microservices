@@ -3,7 +3,7 @@
     <div class="hero-body">
       <router-view/>
     </div>
-    <div v-if="user.CognitoUser">
+    <div v-if="user">
       <Navigation></Navigation>
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState("user", {
-      user: state => state.currentAuthUser
+      user: state => state.signedIn
     })
   }
 };

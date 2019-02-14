@@ -5,10 +5,12 @@ import aws from "aws-sdk";
 export default {
   namespaced: true,
   state: {
-    currentAuthUser: {},
+    CognitoUser: {}, // AWS CognitoUser object
+    userData: {}, // holding data of returned ddb table object of current user
     signedIn: false,
     profileView: {},
     userOptions: {
+      // Holding data about setting user options
       isActive: false
     }
   },
@@ -23,12 +25,12 @@ export default {
         })
         .catch(err => {
           console.log(err.response);
-          console.log(state.currentAuthUser.CognitoUser.username);
+          console.log(state.CognitoUser.username);
           let apiName = "users";
           let path = "/users";
           let myInit = {
             body: {
-              userName: state.currentAuthUser.CognitoUser.username,
+              userName: state.CognitoUser.username,
               createdAt: new Date(Date.now())
             },
             response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -42,7 +44,7 @@ export default {
             });
         });
     },
-    fetchUserData({ state }) {
+    fetchUserData({ state, commit }) {
       console.log(state.profileView.userName);
       let apiName = "users";
       let path = "/users/object/" + state.profileView.userName;
@@ -51,6 +53,7 @@ export default {
       };
       API.get(apiName, path, myInit)
         .then(response => {
+          commit("setUserData", response.data);
           console.log(response);
         })
         .catch(error => {
@@ -72,10 +75,9 @@ export default {
       });
     },
     deleteUser({ state }) {
-      let accessToken =
-        state.currentAuthUser.CognitoUser.CognitoUserSession.CognitoAccessToken;
+      let accessToken = state.CognitoUser.CognitoUserSession.CognitoAccessToken;
       let apiName = "users";
-      let path = "/users/object/" + state.currentAuthUser.CognitoUser.username;
+      let path = "/users/object/" + state.CognitoUser.username;
       let myInit = {
         response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
       };
@@ -115,13 +117,14 @@ export default {
       state.profileView.userName = name;
     },
     resetUser(state) {
-      state.currentAuthUser = {};
+      state.userData = {};
+      state.CognitoUser = {};
     },
     setCognitoUser(state, user) {
-      state.currentAuthUser.CognitoUser = user;
+      state.CognitoUser = user;
     },
     setUserData(state, data) {
-      state.currentAuthUser.data = data;
+      state.userData = data;
     },
     setSignedIn(state, bool) {
       state.signedIn = bool;

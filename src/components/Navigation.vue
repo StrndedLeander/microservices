@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     ...mapState("user", {
-      userName: state => state.currentAuthUser.CognitoUser.username
+      userName: state => state.CognitoUser.username
     })
   },
   methods: {

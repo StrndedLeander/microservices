@@ -1,9 +1,12 @@
 <template>
   <div>
     <h1>{{ userName }}</h1>
-    <button class="buton" @click="options = true">
+    <section class="section">
+      <div class="container"></div>
+    </section>
+    <button class="button is-rounded" @click="toggleUserOptions(true)">
       <span class="icon">
-        <i class="fas fa-cogs"></i>
+        <i class="fas fa-cog"></i>
       </span>
     </button>
     <div v-if="inUserOptions">
@@ -20,7 +23,6 @@ export default {
   components: {
     Options
   },
-  data() {},
   props: ["userName"],
   computed: {
     ...mapState("user", {
@@ -30,7 +32,7 @@ export default {
   },
   methods: {
     ...mapActions("user", ["fetchUserData"]),
-    ...mapMutations("user", ["setProfileName"])
+    ...mapMutations("user", ["setProfileName", "toggleUserOptions"])
   },
   created() {
     this.setProfileName(this.userName);
