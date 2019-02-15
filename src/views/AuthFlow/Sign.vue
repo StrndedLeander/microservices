@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 import { AmplifyEventBus } from "aws-amplify-vue";
 import router from "../../router.js";
 export default {
@@ -36,8 +36,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("user", ["findUser", "sendConfirmationCode", "addUserToDdb"]),
-    ...mapMutations("user", ["setNewUser"])
+    ...mapActions("user", ["findUser", "addUserToDdb"])
   },
   created() {
     AmplifyEventBus.$on("authState", info => {
@@ -48,8 +47,23 @@ export default {
         case "signedOut":
           break;
         case "signedIn":
-          router.push("/");
-          this.addUserToDdb();
+          // triggers: 1. findUser; 2. fetchUserData; (3.addUserToDdb)
+          this.findUser()
+            .then(user => {
+              console.log(user.username.toString());
+              this.addUserToDdb(user.username.toString())
+                .then(res => {
+                  console.log(res);
+                  router.push("/");
+                })
+                .catch(err => {
+                  console.log(err);
+                  router.push("/");
+                });
+            })
+            .catch(err => {
+              console.log(err);
+            });
           break;
         case "confirmSignIn":
           this.hasToConfirmEmail = true;

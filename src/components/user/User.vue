@@ -2,7 +2,11 @@
   <div>
     <h1>{{ userName }}</h1>
     <section class="section">
-      <div class="container"></div>
+      <div class="container">
+        <ul v-for="(value, key) in profileUserData" :key="value.userName">
+          <li>{{key}} : {{value}}</li>
+        </ul>
+      </div>
     </section>
     <button class="button is-rounded" @click="toggleUserOptions(true)">
       <span class="icon">
@@ -16,7 +20,7 @@
 </template>
 
 <script>
-import Options from "./OptionsModal";
+import Options from "./ProfileOptions";
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "User",
@@ -31,12 +35,15 @@ export default {
     })
   },
   methods: {
-    ...mapActions("user", ["fetchUserData"]),
+    ...mapActions("user", ["fetchUserProfile"]),
     ...mapMutations("user", ["setProfileName", "toggleUserOptions"])
   },
-  created() {
+  mounted() {
+    if (this.userName == this.profileUserData.userName) {
+      return;
+    }
     this.setProfileName(this.userName);
-    this.fetchUserData();
+    this.fetchUserProfile();
   }
 };
 </script>

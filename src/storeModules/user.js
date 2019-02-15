@@ -16,60 +16,71 @@ export default {
   },
   getters: {},
   actions: {
-    addUserToDdb({ state, dispatch }) {
-      dispatch("fetchUserData")
-        .then(response => {
-          console.log(
-            "User " + response.data.userName + " already in user ddb"
-          );
-        })
-        .catch(err => {
-          console.log(err.response);
-          console.log(state.CognitoUser.username);
-          let apiName = "users";
-          let path = "/users";
-          let myInit = {
-            body: {
-              userName: state.CognitoUser.username,
-              createdAt: new Date(Date.now())
-            },
-            response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
-          };
-          API.post(apiName, path, myInit)
-            .then(response => {
-              console.log(response);
-            })
-            .catch(err => {
-              console.log(err.respose);
-            });
-        });
+    addUserToDdb({ dispatch }, userName) {
+      return new Promise((resolve, reject) => {
+        dispatch("fetchUserData")
+          .then(response => {
+            console.log(response);
+            resolve(response);
+          })
+          .catch(err => {
+            console.log(err);
+            let apiName = "users";
+            let path = "/users";
+            let myInit = {
+              body: {
+                userName: userName,
+                createdAt: new Date(Date.now()).toString()
+              },
+              response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
+            };
+            API.post(apiName, path, myInit)
+              .then(response => {
+                console.log(response);
+                resolve(response);
+              })
+              .catch(err => {
+                console.log(err);
+                reject(err);
+              });
+          });
+      });
     },
-    // api call to get the table row for a user
-    fetchUserData({ state, commit }, username) {
+    // fetches users table row to do something with the data resolved by a promiseq
+    fetchUserData(userName) {
+      return new Promise((resolve, reject) => {
+        let apiName = "users";
+        let path = "/users/object/" + userName;
+        let myInit = {
+          response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
+        };
+        API.get(apiName, path, myInit)
+          .then(response => {
+            console.log(response);
+            resolve(response);
+          })
+          .catch(error => {
+            console.log(error.response);
+            reject(error);
+          });
+      });
+    },
+    // api call to get the table row for a user for which the user profile shall be displayed
+    fetchUserProfile({ state, commit }) {
       console.log(state.profileView.userName);
       let apiName = "users";
+      let path = "/users/object/" + state.profileView.userName;
       let myInit = {
         response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
       };
-      if (username) {
-        API.get(apiName, "/users/object/" + username, myInit)
-          .then(response => {
-            commit("setUserData", response.data);
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
-      } else {
-        API.get(apiName, "/users/object/" + state.profileView.userName, myInit)
-          .then(response => {
-            commit("setUserData", response.data);
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error.response);
-          });
-      }
+      API.get(apiName, path, myInit)
+        .then(response => {
+          commit("setProfileView", response.data);
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
     },
     // returns the current user that is authenticated in a promise - not a lambda api call -
     findUser({ commit }) {
@@ -140,7 +151,7 @@ export default {
     setSignedIn(state, bool) {
       state.signedIn = bool;
     },
-    setProfileViewData(state, data) {
+    setProfileView(state, data) {
       state.profileView = data;
     },
     toggleUserOptions(state, bool) {

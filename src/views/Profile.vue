@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import User from "../components/User";
+import User from "../components/user/User";
 export default {
   name: "ProfileView",
   components: {
