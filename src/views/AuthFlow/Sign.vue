@@ -48,10 +48,8 @@ export default {
         case "signedOut":
           break;
         case "signedIn":
-          this.findUser().then(() => {
-            this.addUserToDdb();
-            router.push("/");
-          });
+          router.push("/");
+          this.addUserToDdb();
           break;
         case "confirmSignIn":
           this.hasToConfirmEmail = true;

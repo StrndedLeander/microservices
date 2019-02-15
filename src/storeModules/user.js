@@ -44,29 +44,40 @@ export default {
             });
         });
     },
-    fetchUserData({ state, commit }) {
+    // api call to get the table row for a user
+    fetchUserData({ state, commit }, username) {
       console.log(state.profileView.userName);
       let apiName = "users";
-      let path = "/users/object/" + state.profileView.userName;
       let myInit = {
         response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
       };
-      API.get(apiName, path, myInit)
-        .then(response => {
-          commit("setUserData", response.data);
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error.response);
-        });
+      if (username) {
+        API.get(apiName, "/users/object/" + username, myInit)
+          .then(response => {
+            commit("setUserData", response.data);
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error.response);
+          });
+      } else {
+        API.get(apiName, "/users/object/" + state.profileView.userName, myInit)
+          .then(response => {
+            commit("setUserData", response.data);
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error.response);
+          });
+      }
     },
+    // returns the current user that is authenticated in a promise - not a lambda api call -
     findUser({ commit }) {
       return new Promise((resolve, reject) => {
         Auth.currentAuthenticatedUser()
           .then(user => {
             commit("setSignedIn", true);
             commit("setCognitoUser", user);
-            console.log("user", user);
             resolve(user);
           })
           .catch(err => {
