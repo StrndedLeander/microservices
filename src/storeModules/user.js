@@ -7,16 +7,18 @@ export default {
   state: {
     CognitoUser: {}, // AWS CognitoUser object
     userData: {}, // holding data of returned ddb table object of current user
-    signedIn: false,
+    users: [],
     profileView: {},
     userOptions: {
       // Holding data about setting user options
       isActive: false
-    }
+    },
+    fetchName: "",
+    signedIn: false
   },
   getters: {},
   actions: {
-    addUserToDdb({ dispatch }, userName) {
+    addUserToDdb({ state, dispatch, commit }) {
       return new Promise((resolve, reject) => {
         dispatch("fetchUserData")
           .then(response => {
@@ -29,7 +31,7 @@ export default {
             let path = "/users";
             let myInit = {
               body: {
-                userName: userName,
+                userName: state.fetchName,
                 createdAt: new Date(Date.now()).toString()
               },
               response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
@@ -44,6 +46,7 @@ export default {
                 reject(err);
               });
           });
+        commit("setFetchName", "");
       });
     },
     // fetches users table row to do something with the data resolved by a promiseq
@@ -137,6 +140,9 @@ export default {
   mutations: {
     setProfileName(state, name) {
       state.profileView.userName = name;
+    },
+    setFetchName(state, name) {
+      state.fetchName = name;
     },
     resetUser(state) {
       state.userData = {};

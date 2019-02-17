@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import { AmplifyEventBus } from "aws-amplify-vue";
 import router from "../../router.js";
 export default {
@@ -36,7 +36,8 @@ export default {
     };
   },
   methods: {
-    ...mapActions("user", ["findUser", "addUserToDdb"])
+    ...mapActions("user", ["findUser", "addUserToDdb"]),
+    ...mapMutations("user", ["setFetchName"])
   },
   created() {
     AmplifyEventBus.$on("authState", info => {
@@ -50,8 +51,9 @@ export default {
           // triggers: 1. findUser; 2. fetchUserData; (3.addUserToDdb)
           this.findUser()
             .then(user => {
+              this.setFetchName(user.username)
               console.log(user.username.toString());
-              this.addUserToDdb(user.username.toString())
+              this.addUserToDdb()
                 .then(res => {
                   console.log(res);
                   router.push("/");
