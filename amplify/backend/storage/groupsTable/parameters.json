@@ -1,0 +1,7 @@
+{
+    "tableName": "groupsTable",
+    "partitionKeyName": "groupID",
+    "partitionKeyType": "S",
+    "sortKeyName": "groupName",
+    "sortKeyType": "S"
+}

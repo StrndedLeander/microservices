@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/group",
+            "lambdaFunction": "microgroups",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "groups",
+    "apiName": "microservices3eccbf5e",
+    "functionArns": [
+        {
+            "lambdaFunction": "microgroups"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "microservices-20190203145853-authRole",
+        "unAuthRoleName": "microservices-20190203145853-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "microgroups",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

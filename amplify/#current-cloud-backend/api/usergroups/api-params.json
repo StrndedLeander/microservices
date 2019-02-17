@@ -1,0 +1,32 @@
+{
+  "paths": [
+    {
+      "name": "/usergroups",
+      "lambdaFunction": "usergroupsfunction",
+      "privacy": {
+        "private": true,
+        "auth": "rw"
+      }
+    }
+  ],
+  "resourceName": "usergroups",
+  "apiName": "microservices4f0f8337",
+  "functionArns": [
+    {
+      "lambdaFunction": "usergroupsfunction"
+    }
+  ],
+  "privacy": {
+    "auth": 1,
+    "unauth": 0,
+    "authRoleName": "microservices-20190203145853-authRole",
+    "unAuthRoleName": "microservices-20190203145853-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "usergroupsfunction",
+      "attributes": ["Name", "Arn"]
+    }
+  ]
+}

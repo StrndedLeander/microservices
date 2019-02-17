@@ -155,6 +155,46 @@
 				}
 			}
 		},
+		"apigroups": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/groups-cloudformation-template.json",
+				"Parameters": {
+					"functionmicrogroupsName": {
+						"Fn::GetAtt": [
+							"functionmicrogroups",
+							"Outputs.Name"
+						]
+					},
+					"functionmicrogroupsArn": {
+						"Fn::GetAtt": [
+							"functionmicrogroups",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
+		"apiusergroups": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/api/usergroups-cloudformation-template.json",
+				"Parameters": {
+					"functionusergroupsfunctionName": {
+						"Fn::GetAtt": [
+							"functionusergroupsfunction",
+							"Outputs.Name"
+						]
+					},
+					"functionusergroupsfunctionArn": {
+						"Fn::GetAtt": [
+							"functionusergroupsfunction",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
 		"storageuserTable": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
@@ -166,11 +206,77 @@
 				}
 			}
 		},
+		"storagegroupsTable": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/storage/groupsTable-cloudformation-template.json",
+				"Parameters": {
+					"tableName": "groupsTable",
+					"partitionKeyName": "groupID",
+					"partitionKeyType": "S",
+					"sortKeyName": "groupName",
+					"sortKeyType": "S"
+				}
+			}
+		},
+		"storageUserGroupsTable": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/storage/UserGroupsTable-cloudformation-template.json",
+				"Parameters": {
+					"tableName": "UserGroupsTable",
+					"partitionKeyName": "userName",
+					"partitionKeyType": "S",
+					"sortKeyName": "groupID",
+					"sortKeyType": "S"
+				}
+			}
+		},
 		"functionmicroservices450140d4": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
 				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/microservices450140d4-cloudformation-template.json",
 				"Parameters": {}
+			}
+		},
+		"functionmicrogroups": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/microgroups-cloudformation-template.json",
+				"Parameters": {
+					"storagegroupsTableName": {
+						"Fn::GetAtt": [
+							"storagegroupsTable",
+							"Outputs.Name"
+						]
+					},
+					"storagegroupsTableArn": {
+						"Fn::GetAtt": [
+							"storagegroupsTable",
+							"Outputs.Arn"
+						]
+					}
+				}
+			}
+		},
+		"functionusergroupsfunction": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/microservices-20190203145853-deployment/amplify-cfn-templates/function/usergroupsfunction-cloudformation-template.json",
+				"Parameters": {
+					"storageUserGroupsTableName": {
+						"Fn::GetAtt": [
+							"storageUserGroupsTable",
+							"Outputs.Name"
+						]
+					},
+					"storageUserGroupsTableArn": {
+						"Fn::GetAtt": [
+							"storageUserGroupsTable",
+							"Outputs.Arn"
+						]
+					}
+				}
 			}
 		}
 	},

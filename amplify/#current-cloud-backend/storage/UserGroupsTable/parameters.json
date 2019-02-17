@@ -1,0 +1,7 @@
+{
+    "tableName": "UserGroupsTable",
+    "partitionKeyName": "userName",
+    "partitionKeyType": "S",
+    "sortKeyName": "groupID",
+    "sortKeyType": "S"
+}

@@ -1,5 +1,5 @@
 {
-    "tableName": "userTable",
-    "partitionKeyName": "userName",
-    "partitionKeyType": "S"
+  "tableName": "userTable",
+  "partitionKeyName": "userName",
+  "partitionKeyType": "S"
 }

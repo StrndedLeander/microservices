@@ -14,12 +14,30 @@ const awsmobile =  {
             "name": "users",
             "endpoint": "https://x4j9wrwvcj.execute-api.eu-central-1.amazonaws.com/Prod",
             "region": "eu-central-1"
+        },
+        {
+            "name": "groups",
+            "endpoint": "https://3gd8r9fya5.execute-api.eu-central-1.amazonaws.com/Prod",
+            "region": "eu-central-1"
+        },
+        {
+            "name": "usergroups",
+            "endpoint": "https://dd7ilxkx74.execute-api.eu-central-1.amazonaws.com/Prod",
+            "region": "eu-central-1"
         }
     ],
     "aws_dynamodb_all_tables_region": "eu-central-1",
     "aws_dynamodb_table_schemas": [
         {
             "tableName": "userTable",
+            "region": "eu-central-1"
+        },
+        {
+            "tableName": "groupsTable",
+            "region": "eu-central-1"
+        },
+        {
+            "tableName": "UserGroupsTable",
             "region": "eu-central-1"
         }
     ]
