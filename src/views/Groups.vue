@@ -1,10 +1,18 @@
 <template>
-  <div class="groups"></div>
+  <div class="groups">
+    <GroupsListing></GroupsListing>
+  </div>
 </template>
 
 <script>
+// import GroupsCreation from "../components/groups/GroupsCreation";
+import GroupsListing from "../components/groups/GroupsListing";
 export default {
-  name: "GroupsView"
+  name: "GroupsView",
+  components: {
+    // GroupsCreation,
+    GroupsListing
+  }
 };
 </script>
 

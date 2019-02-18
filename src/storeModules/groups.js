@@ -9,9 +9,13 @@ export default {
   },
   getters: {},
   actions: {
-    listAllGroups() {
+    getAllGroups() {
       return new Promise((resolve, reject) => {
-        API.get("groups")
+        let path = "/group/:groupID";
+        let myInit = {
+          response: true
+        };
+        API.get("groups", path, myInit)
           .then(response => {
             console.log(response);
             resolve(response);
@@ -26,7 +30,7 @@ export default {
       return new Promise((resolve, reject) => {
         let path = "/groups/object/" + state.fetchID;
         let myInit = {
-          response: true // OPTIONAL (return the entire Axios response object instead of only response.data)
+          response: true
         };
         API.get("groups", path, myInit)
           .then(response => {

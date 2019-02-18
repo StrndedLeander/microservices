@@ -1,9 +1,26 @@
 <template>
-  <div></div>
+  <div class="groupsListing">
+    <button class="button" @click="getAllGroups">List Groups</button>
+  </div>
 </template>
 
 <script>
-export default {};
+import { mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      groups: []
+    };
+  },
+  methods: {
+    ...mapActions("groups", ["getAllGroups"])
+  }
+  // mounted() {
+  //   this.getAllGroups().then(response => {
+  //     for(let i=0; i < response.data)
+  //   })
+  // }
+};
 </script>
 
 <style scoped>
