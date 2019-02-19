@@ -55,38 +55,42 @@ const convertUrlType = (param, type) => {
  * HTTP Get method for list objects *
  ********************************/
 
-app.get(path + hashKeyPath, function(req, res) {
-  var condition = {};
-  condition[partitionKeyName] = {
-    ComparisonOperator: "EQ"
-  };
+app.get(path, function(req, res) {
+  // var condition = {};
+  // condition[partitionKeyName] = {
+  //   ComparisonOperator: "EQ"
+  // };
 
-  if (userIdPresent && req.apiGateway) {
-    condition[partitionKeyName]["AttributeValueList"] = [
-      req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH
-    ];
-  } else {
-    try {
-      condition[partitionKeyName]["AttributeValueList"] = [
-        convertUrlType(req.params[partitionKeyName], partitionKeyType)
-      ];
-    } catch (err) {
-      res.json({ error: "Wrong column type " + err });
-    }
-  }
+  // if (userIdPresent && req.apiGateway) {
+  //   condition[partitionKeyName]["AttributeValueList"] = [
+  //     req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH
+  //   ];
+  // } else {
+  //   try {
+  //     condition[partitionKeyName]["AttributeValueList"] = [
+  //       convertUrlType(req.params[partitionKeyName], partitionKeyType)
+  //     ];
+  //   } catch (err) {
+  //     res.json({ error: "Wrong column type " + err });
+  //   }
+  // }
+  console.log(req.params);
+  let params = req.params;
+  console.log("Scanning groupsTable with params: ", params);
+  dynamodb.scan(params, onScan);
 
-  let queryParams = {
-    TableName: tableName,
-    KeyConditions: condition
-  };
-
-  dynamodb.query(queryParams, (err, data) => {
+  function onScan(err, data) {
     if (err) {
       res.json({ error: "Could not load items: " + err });
     } else {
       res.json(data.Items);
+      if (typeof data.LastEvaluatedKey != "undefined") {
+        console.log("Scanning for more...");
+        params.ExclusiveStartKey = data.LastEvaluatedKey;
+        dynamodb.scan(params, onScan);
+      }
     }
-  });
+  }
 });
 
 /*****************************************

@@ -11,11 +11,14 @@ export default {
   actions: {
     getAllGroups() {
       return new Promise((resolve, reject) => {
-        let path = "/group/:groupID";
-        let myInit = {
-          response: true
+        let params = {
+          TableName: "groupsTable",
+          ProjectionExpression: "#groupID, groupName",
+          ExpressionAttributeNames: {
+            "#groupID": "groupID"
+          }
         };
-        API.get("groups", path, myInit)
+        API.get("groups", "/group", params)
           .then(response => {
             console.log(response);
             resolve(response);
@@ -28,7 +31,7 @@ export default {
     },
     fetchGroupData({ state, commit }) {
       return new Promise((resolve, reject) => {
-        let path = "/groups/object/" + state.fetchID;
+        let path = "/group/object/" + state.fetchID;
         let myInit = {
           response: true
         };
